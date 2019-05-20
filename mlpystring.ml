@@ -105,6 +105,10 @@ let count str ?(start=0) ?(fin= -1) sub =
       cnt
   in iter 0 (find str sub ~start:start ~fin:fin);;
 
+let endswith text ?(start=0) ?(fin= -1) suffix = 
+  let start, fin = int_adjust_index_ (String.length text) start fin in
+    true;;
+
 
 
 let mul str n = str *$ n;;
