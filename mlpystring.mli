@@ -7,5 +7,6 @@ val at : string -> int -> char
 val center : string -> ?fillchar:char -> int -> string
 val capitalize : string -> string
 val count : string -> ?start:int -> ?fin:int -> string -> int
+val endswith : string -> ?start:int -> ?fin:int -> string -> bool
 val find : string -> ?start:int -> ?fin:int -> string -> int 
 val get : string -> int -> char

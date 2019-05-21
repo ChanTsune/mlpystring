@@ -33,7 +33,10 @@ let back_index_ n len =
     n;;
 
 let int_adjust_index_ strlen start fin =
-  back_index_ start strlen , back_index_ fin strlen;;
+  if fin > strlen then
+    back_index_ start strlen , strlen
+  else
+    back_index_ start strlen , back_index_ fin strlen;;
 
 let adjust_index_ strlen start fin =(** Option type *)
   int_adjust_index_ strlen (unwrap_ start 0 ) (unwrap_ fin strlen);;
@@ -45,8 +48,11 @@ let get str n =
 let at str n = get str n;;
 
 
-let slice ?(start=0) ?(fin= -1) ?(step=1) str = 1;;
+let slice ?(start=0) ?(fin=max_int) ?(step=1) str = 1;;
 
+let simple_slice ?(start=0) ?(fin=max_int) str = 
+  let start,fin = int_adjust_index_ (String.length str) start fin in
+  String.sub str start (fin-start);;
 
 (** 入力値は文字列 返却値は スキップテーブル(Hashtbl) *)
 let wArray_set a n x = 
@@ -67,14 +73,14 @@ let make_table str =
   (** スキップする長さは　入力された文字列の長さ - その文字の文字列の中での位置 -1 *)
   table_update 0 table;;
 
-let find text ?(start=0) ?(fin= -1) suffix = 
+let find text ?(start=0) ?(fin=max_int) suffix = 
   let start, fin = int_adjust_index_ (String.length text) start fin in  (** 開始インデックスの調整*)
   let shift_table = make_table suffix in
   let skip text pos = 
     Printf.printf "%s ,p: %d\n" text pos;
     Array.get shift_table (int_of_char text.[pos]) in
   let rec search_iter text suffix i p = 
-    if p >= 0 && i <= fin then
+    if p >= 0 && i < fin then
       if text.[i] = suffix.[p] then
         search_iter text suffix (i-1) (p-1)
       else
@@ -84,7 +90,7 @@ let find text ?(start=0) ?(fin= -1) suffix =
   in
   let rec pos_iter text suffix i = 
     Printf.printf "i: %d\n" i;
-    if i <= fin then
+    if i < fin then
       let i,p = search_iter text suffix i (String.length suffix -1) in
       if p < 0 then
         i+1
@@ -94,20 +100,24 @@ let find text ?(start=0) ?(fin= -1) suffix =
       -1
   in pos_iter text suffix (String.length suffix + start - 1);;
 
-let count str ?(start=0) ?(fin= -1) sub =
+let count str ?(start=0) ?(fin=max_int) sub =
   let start, fin = int_adjust_index_ (String.length str) start fin in
   let sublen = String.length sub in
   let rec iter cnt cursor = 
-    Printf.printf "count ->  %d: %d\n" cnt cursor;
     if cursor <> -1 && (cursor+sublen) <= fin+1 then
       iter (cnt+1) (find str sub ~start:cursor+sublen)
     else
       cnt
   in iter 0 (find str sub ~start:start ~fin:fin);;
 
-let endswith text ?(start=0) ?(fin= -1) suffix = 
+let endswith text ?(start=0) ?(fin=max_int) suffix = 
   let start, fin = int_adjust_index_ (String.length text) start fin in
-    true;;
+  let sublen = String.length suffix in
+  if (fin - start) < sublen then
+    false
+  else
+    let sub = simple_slice text ~start:(fin-sublen) ~fin:fin in
+    sub = suffix;;
 
 
 
