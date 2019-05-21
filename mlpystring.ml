@@ -119,6 +119,20 @@ let endswith text ?(start=0) ?(fin=max_int) suffix =
     let sub = simple_slice text ~start:(fin-sublen) ~fin:fin in
     sub = suffix;;
 
+let split text ?(count=max_int) sep = 
+  let rec iter lst txt cnt s = 
+    if cnt = 0 then
+      List.rev (txt::lst)
+    else
+      let cusor = find txt sep in
+      if cusor = -1 then
+        List.rev (txt::lst)
+      else
+        let hd = simple_slice txt ~start:0 ~fin:cusor in
+        let tl = simple_slice txt ~start:(cusor+(String.length sep)) in
+        iter (hd::lst) tl (cnt-1) s
+  in iter [] text count sep;;
+
 
 
 let mul str n = str *$ n;;
