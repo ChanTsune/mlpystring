@@ -144,6 +144,15 @@ let replace text ?(count=max_int) old new_ =
     let lst = split text old ~count:count in
     join new_ lst;;
 
+let expandtabs ?(tabsize=8) str = 
+ replace str "\t" (String.make tabsize ' ')
+
+let index text ?(start=0) ?(fin=max_int) suffix = 
+  let i = find text ~start:start ~fin:fin suffix in
+  if i = -1 then
+    raise Not_found
+  else
+    i;;
 
 
 let mul str n = str *$ n;;
