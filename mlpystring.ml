@@ -18,8 +18,7 @@ let center str ?(fillchar=' ') width =
   else
     let a = width - slen in
     let b = a/2 + a mod 2 in (** Buffer を利用した最適化の余地あり*)
-    let fill = Char.escaped fillchar in
-    fill *$ b ^ str ^  fill *$ (a-b);;
+    (String.make b fillchar) ^ str ^ (String.make (a-b) fillchar);;
 
 let unwrap_ n default =
   match n with
