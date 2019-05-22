@@ -133,6 +133,18 @@ let split text ?(count=max_int) sep =
         iter (hd::lst) tl (cnt-1) s
   in iter [] text count sep;;
 
+let join str lst = 
+  let rec iter result lst = 
+    match lst with
+    | [s] -> result ^ s
+    |hd::tl -> iter (result^hd^str) tl
+    | [] -> result
+  in iter "" lst;;
+
+let replace text ?(count=max_int) old new_ = 
+    let lst = split text old ~count:count in
+    join new_ lst;;
+
 
 
 let mul str n = str *$ n;;

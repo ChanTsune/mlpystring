@@ -10,3 +10,6 @@ val count : string -> ?start:int -> ?fin:int -> string -> int
 val endswith : string -> ?start:int -> ?fin:int -> string -> bool
 val find : string -> ?start:int -> ?fin:int -> string -> int 
 val get : string -> int -> char
+val join : string -> string list -> string
+val replace : string -> ?count:int -> string -> string -> string
+val split : string -> ?count:int -> string -> string list
