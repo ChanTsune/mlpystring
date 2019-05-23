@@ -157,13 +157,94 @@ let index text ?(start=0) ?(fin=max_int) suffix =
   else
     i;;
 
+let cisdigit c =
+  '0' <= c && c <= '9';;
 
 let mul str n = str *$ n;;
+let cisupper c =
+  'A' <= c && c <= 'Z';;
+
+let cislower c =
+  'a' <= c && c <= 'z';;
+
+let cisalpha c =
+  cislower c || cisupper c;;
+
+let cisalnum c =
+  cisalpha c || cisdigit c;;
+
+let cisascii c =
+  '\000' <= c && c <= '\127'
+
+let cisspace c =
+  ('\009' <= c && c <= '\013') || ('\028' <= c && c <= '\032');;
+
+let cisprintable c =
+  '\032' <= c && c <= '\126';;
+
+let cisrowboundary c =
+  match c with
+    '\n' -> true
+  | '\r' -> true
+  | '\011' -> true
+  | '\012' -> true
+  | '\028' -> true
+  | '\029' -> true
+  | '\030' -> true
+  | '\133' -> true
+  |  _ -> false;;
 
 
+let isx str ?(zero=false) f =
+  let l = String.length str in
+  if l = 0 then
+    zero
+  else
+  let rec iter slen =
+    if slen = 0 then
+      true
+    else if not (f (String.get str (slen-1)) ) then
+      false
+    else
+      iter (slen-1)
+  in iter l;;
+
+let isalnum str = isx str cisalnum;;
+
+let isalpha str = isx str cisalpha;;
+
+let isascii str = isx str cisascii ~zero:true;;
+
+let isdecimal str = isx str cisdigit;;
+
+let isdigit str = isx str cisdigit;;
+
+let islower str = isx str cislower;;
+
+let isnumeric str = isdecimal str;;
 
 let loop f = 
   let rec iter result f = 
+let isprintable str = isx str cisprintable ~zero:true;;
+
+let isspace str = isx str cisspace;;
+
+let isupper str = isx str cisupper;;
+
+let ljust str ?(fillchar=' ') width =
+  let l = String.length str in
+  if l >= width then
+    str
+  else
+    String.make (width-l) fillchar ^ str;;
+
+let rjust str ?(fillchar=' ') width =
+  let r = String.length str in
+  if r >= width then
+    str
+  else
+    str ^ String.make (width-r) fillchar;;
+
     iter result f
   in iter 0 f;;
 
