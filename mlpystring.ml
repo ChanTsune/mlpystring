@@ -6,8 +6,11 @@ let ( *$ ) str n =
     else
       iter (result^str) (i-1) (** Buffer を利用した最適化の余地あり*)
   in iter "" n;;
-let ($^) s c = s ^ Char.escaped c;; (* append *)
-let (^$) c s = Char.escaped c ^ s;; (* prepend *)
+
+let char_of_string c =  String.make 1 c;;
+
+let ($^) s c = s ^ char_of_string c;; (* append *)
+let (^$) c s = char_of_string c ^ s;; (* prepend *)
 
 let capitalize str = String.capitalize_ascii str;;
 
