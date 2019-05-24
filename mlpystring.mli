@@ -22,7 +22,11 @@ val isprintable : string -> bool
 val isspace : string -> bool
 val isupper : string -> bool
 val ljust : string -> ?fillchar:char -> int -> string
+val lower : string -> string
+val lstrip : string -> string
 val join : string -> string list -> string
 val rjust : string -> ?fillchar:char -> int -> string
+val rstrip : string -> string
 val replace : string -> ?count:int -> string -> string -> string
 val split : string -> ?count:int -> string -> string list
+val strip : string -> string

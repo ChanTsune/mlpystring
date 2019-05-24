@@ -242,6 +242,28 @@ let rjust str ?(fillchar=' ') width =
   else
     str ^ String.make (width-r) fillchar;;
 
+let lower str = String.lowercase_ascii str;;
+
+let lstrip str = 
+  let rec iter cnt = 
+    if cisspace (String.get str cnt) then
+      iter (cnt+1)
+    else
+      cnt
+  in 
+  simple_slice str ~start:(iter 0);;
+
+let rstrip str = 
+  let rec iter cnt = 
+    if cisspace (String.get str cnt) then
+      iter (cnt-1)
+    else
+      cnt
+  in
+  simple_slice str ~fin:((iter ((String.length str)-1))+1);;
+
+let strip str = lstrip (rstrip str);;
+
 let mul str n = str *$ n;;
 let loop f =
   let rec iter result f =
