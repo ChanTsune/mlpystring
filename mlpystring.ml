@@ -160,7 +160,6 @@ let index text ?(start=0) ?(fin=max_int) suffix =
 let cisdigit c =
   '0' <= c && c <= '9';;
 
-let mul str n = str *$ n;;
 let cisupper c =
   'A' <= c && c <= 'Z';;
 
@@ -243,6 +242,7 @@ let rjust str ?(fillchar=' ') width =
   else
     str ^ String.make (width-r) fillchar;;
 
+let mul str n = str *$ n;;
 let loop f =
   let rec iter result f =
     iter result f
