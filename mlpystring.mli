@@ -31,3 +31,4 @@ val replace : string -> ?count:int -> string -> string -> string
 val split : string -> ?count:int -> string -> string list
 val strip : string -> string
 val partition : string -> string -> string list
+val splitlines : ?keepends:bool -> string -> string list

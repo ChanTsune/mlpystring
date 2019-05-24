@@ -271,6 +271,43 @@ let partition str sep =
     else
       [simple_slice str ~fin:i ; sep ;simple_slice str ~start:(i+(String.length sep))]
 
+let splitlines ?(keepends=false) str =
+  let len = String.length str in
+  let rec iter i j lst =
+    if i < len then
+      let rec siter si =
+        if si < len && not (cisrowboundary (String.get str si)) then
+          siter (si+1)
+        else
+          si,si
+        in
+      let i, eol = siter i in
+      let rec get_eol i eol = 
+      if i < len then
+        let rec get_i i = 
+        if String.get str i = '\r' && (i+1) < len && String.get str (i+1) = '\n' then
+           i+2
+        else
+           i+1
+        in 
+        let i = get_i i in
+        if keepends then
+           i,i
+        else
+          i,eol
+      else
+        i,eol
+      in
+      let i,eol = get_eol i eol in
+      iter i i  ((String.sub str j (eol-j))::lst)
+    else if j < len then
+      List.rev ((String.sub str j (len-j))::lst)
+    else
+      List.rev lst
+
+  in iter 0 0 [];;
+
+
 
 let mul str n = str *$ n;;
 let loop f =
