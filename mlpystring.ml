@@ -264,6 +264,14 @@ let rstrip str =
 
 let strip str = lstrip (rstrip str);;
 
+let partition str sep = 
+  let i = find str sep in
+    if i = (-1) then
+      [str ;"";""]
+    else
+      [simple_slice str ~fin:i ; sep ;simple_slice str ~start:(i+(String.length sep))]
+
+
 let mul str n = str *$ n;;
 let loop f =
   let rec iter result f =
