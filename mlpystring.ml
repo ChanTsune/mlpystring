@@ -223,8 +223,6 @@ let islower str = isx str cislower;;
 
 let isnumeric str = isdecimal str;;
 
-let loop f = 
-  let rec iter result f = 
 let isprintable str = isx str cisprintable ~zero:true;;
 
 let isspace str = isx str cisspace;;
@@ -245,6 +243,8 @@ let rjust str ?(fillchar=' ') width =
   else
     str ^ String.make (width-r) fillchar;;
 
+let loop f =
+  let rec iter result f =
     iter result f
   in iter 0 f;;
 
