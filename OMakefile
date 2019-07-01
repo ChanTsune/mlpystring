@@ -133,15 +133,15 @@ eprintln($(CWD)/OMakefile is not configured)
 
 ################################################
 # Build an OCaml library
-#
 
-# FILES[] =
-#    file1
-#    file2
-#
-# LIB = main
-#
-# .DEFAULT: $(OCamlLibrary $(LIB), $(FILES))
+
+FILES[] =
+    mlpystring
+
+
+LIB = mlpystring
+
+.DEFAULT: $(OCamlLibrary $(LIB), $(FILES))
 
 ################################################
 # Build an OCaml program
