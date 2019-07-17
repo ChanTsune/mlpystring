@@ -1,7 +1,7 @@
 
 let ( *$ ) str n =
   let rec iter result i =
-    if i = 0 then
+    if i <= 0 then
       result
     else
       iter (result^str) (i-1) (** Buffer を利用した最適化の余地あり*)
