@@ -58,12 +58,12 @@ let simple_slice ?(start=0) ?(fin=max_int) str =
 
 (** 入力値は文字列 返却値は スキップテーブル(Hashtbl) *)
 let wArray_set a n x = 
-  Printf.printf "%c:%d\n" (char_of_int n) x;
+  (* Printf.printf "%c:%d\n" (char_of_int n) x; *)
   Array.set a n x;
   a;;
 
 let make_table str = 
-  Printf.printf "%s\n" str;
+  (* Printf.printf "%s\n" str; *)
   let ascii = 256 in
   let slen = String.length str in
   let table = Array.make ascii slen in
@@ -79,7 +79,7 @@ let find text ?(start=0) ?(fin=max_int) suffix =
   let start, fin = int_adjust_index_ (String.length text) start fin in  (** 開始インデックスの調整*)
   let shift_table = make_table suffix in
   let skip text pos = 
-    Printf.printf "%s ,p: %d\n" text pos;
+    (* Printf.printf "%s ,p: %d\n" text pos; *)
     Array.get shift_table (int_of_char text.[pos]) in
   let rec search_iter text suffix i p = 
     if p >= 0 && i < fin then
@@ -91,7 +91,7 @@ let find text ?(start=0) ?(fin=max_int) suffix =
       i,p
   in
   let rec pos_iter text suffix i = 
-    Printf.printf "i: %d\n" i;
+    (* Printf.printf "i: %d\n" i; *)
     if i < fin then
       let i,p = search_iter text suffix i (String.length suffix -1) in
       if p < 0 then
