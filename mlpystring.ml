@@ -1,11 +1,16 @@
 
-let ( *$ ) str n =
+let repeat str n =
   let rec iter result i =
     if i <= 0 then
-      result
+      Buffer.contents result
     else
-      iter (result^str) (i-1) (** Buffer を利用した最適化の余地あり*)
-  in iter "" n;;
+      begin
+        Buffer.add_string result str;
+        iter result (i-1) 
+      end
+    in iter (Buffer.create (String.length str * n)) n
+
+let ( *$ ) = repeat
 
 let char_of_string c =  String.make 1 c;;
 
@@ -307,11 +312,4 @@ let splitlines ?(keepends=false) str =
 
   in iter 0 0 [];;
 
-
-
 let mul str n = str *$ n;;
-let loop f =
-  let rec iter result f =
-    iter result f
-  in iter 0 f;;
-
