@@ -311,5 +311,3 @@ let splitlines ?(keepends=false) str =
       List.rev lst
 
   in iter 0 0 [];;
-
-let mul str n = str *$ n;;

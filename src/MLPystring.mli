@@ -1,5 +1,5 @@
 
-val mul : string -> int -> string
+val repeat : string -> int -> string
 val ( *$ ) : string -> int -> string
 val ( ^$ ) : char -> string -> string
 val ( $^ ) : string -> char -> string
