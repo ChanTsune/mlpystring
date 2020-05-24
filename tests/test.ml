@@ -1,8 +1,7 @@
 open OUnit2
 
-let all_tests = "all_tests" >::: [
+let suite = "suite" >::: [
     String_test.tests
   ]
 
-let () =
-  run_test_tt_main all_tests;;
+let () = run_test_tt_main suite;;
