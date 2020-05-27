@@ -1,8 +1,9 @@
 
-val repeat : string -> int -> string
 val ( *$ ) : string -> int -> string
 val ( ^$ ) : char -> string -> string
 val ( $^ ) : string -> char -> string
+
+val repeat : string -> int -> string
 val char_of_string : char -> string 
 val at : string -> int -> char
 val center : string -> ?fillchar:char -> int -> string

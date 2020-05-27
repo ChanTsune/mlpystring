@@ -10,10 +10,10 @@ let repeat str n =
       end
     in iter (Buffer.create (String.length str * n)) n
 
-let ( *$ ) = repeat
 
 let char_of_string c =  String.make 1 c;;
 
+let ( *$ ) = repeat
 let ($^) s c = s ^ char_of_string c;; (* append *)
 let (^$) c s = char_of_string c ^ s;; (* prepend *)
 
