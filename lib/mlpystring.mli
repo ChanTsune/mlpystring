@@ -28,7 +28,6 @@ val lstrip : string -> string
 val join : string -> string list -> string
 val rjust : string -> ?fillchar:char -> int -> string
 val rstrip : string -> string
-val repeat : string -> int -> string
 val replace : string -> ?count:int -> string -> string -> string
 val split : string -> ?count:int -> string -> string list
 val strip : string -> string
