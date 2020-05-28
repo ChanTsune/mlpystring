@@ -10,10 +10,10 @@ let repeat str n =
       end
     in iter (Buffer.create (String.length str * n)) n
 
-let ( *$ ) = repeat
 
 let char_of_string c =  String.make 1 c;;
 
+let ( *$ ) = repeat
 let ($^) s c = s ^ char_of_string c;; (* append *)
 let (^$) c s = char_of_string c ^ s;; (* prepend *)
 
@@ -25,13 +25,14 @@ let center str ?(fillchar=' ') width =
     str
   else
     let a = width - slen in
-    let b = a/2 + a mod 2 in (** Buffer を利用した最適化の余地あり*)
+    let b = a/2 + a mod 2 in
     (String.make b fillchar) ^ str ^ (String.make (a-b) fillchar);;
+(* TODO:center Buffer を利用した最適化の余地あり*)
 
-let unwrap_ n default =
+(* let unwrap_ n default =
   match n with
   None -> default
-  | Some(i) -> i;;
+  | Some(i) -> i;; *)
 
 let back_index_ n len =
   if n < 0 then
@@ -45,8 +46,8 @@ let int_adjust_index_ strlen start fin =
   else
     back_index_ start strlen , back_index_ fin strlen;;
 
-let adjust_index_ strlen start fin =(** Option type *)
-  int_adjust_index_ strlen (unwrap_ start 0 ) (unwrap_ fin strlen);;
+(* let adjust_index_ strlen start fin =(** Option type *)
+  int_adjust_index_ strlen (unwrap_ start 0 ) (unwrap_ fin strlen);; *)
 
 let get str n =
   let i = back_index_ n (String.length str) in
@@ -55,7 +56,7 @@ let get str n =
 let at str n = get str n;;
 
 
-let slice ?(start=0) ?(fin=max_int) ?(step=1) str = 1;;
+(* let slice ?(start=0) ?(fin=max_int) ?(step=1) str = 1;; *)
 
 let simple_slice ?(start=0) ?(fin=max_int) str = 
   let start,fin = int_adjust_index_ (String.length str) start fin in
@@ -77,11 +78,11 @@ let make_table str =
       table_update (i+1) (wArray_set t (int_of_char str.[i]) ((slen -i) -1))
     else
       t in
-  (** スキップする長さは　入力された文字列の長さ - その文字の文字列の中での位置 -1 *)
+  (* スキップする長さは　入力された文字列の長さ - その文字の文字列の中での位置 -1 *)
   table_update 0 table;;
 
 let find text ?(start=0) ?(fin=max_int) suffix = 
-  let start, fin = int_adjust_index_ (String.length text) start fin in  (** 開始インデックスの調整*)
+  let start, fin = int_adjust_index_ (String.length text) start fin in  (* 開始インデックスの調整*)
   let shift_table = make_table suffix in
   let skip text pos = 
     (* Printf.printf "%s ,p: %d\n" text pos; *)
@@ -287,9 +288,9 @@ let splitlines ?(keepends=false) str =
           si,si
         in
       let i, eol = siter i in
-      let rec get_eol i eol = 
+      let get_eol i eol = 
       if i < len then
-        let rec get_i i = 
+        let get_i i = 
         if String.get str i = '\r' && (i+1) < len && String.get str (i+1) = '\n' then
            i+2
         else
