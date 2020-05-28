@@ -2,7 +2,8 @@
 opam-version: "2.0"
 version: "0.0.0"
 synopsis: "An OCaml library for Python like string operation"
-description: ""
+description:
+  "A library that provides methods equivalent to Python3's str class in OCaml."
 maintainer: ["ChanTsune"]
 authors: ["ChanTsune"]
 license: "MIT"
