@@ -1,4 +1,6 @@
-
+val adjust_index :
+  int option -> int option -> int option -> int -> int * int * int * int
+val slice : string -> int option -> int option -> int option -> string
 val ( *$ ) : string -> int -> string
 val ( ^$ ) : char -> string -> string
 val ( $^ ) : string -> char -> string

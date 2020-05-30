@@ -1,5 +1,8 @@
 open OUnit2
 
+let test_slice = "slice string" >::
+  (fun _ -> assert_equal (Mlpystring.slice "012345" (Some 0) None (Some 2)) "024" )
+
 let test_repeat = "repeat string" >::
  (fun _ -> assert_equal (Mlpystring.repeat "123" 2) "123123")
 
@@ -43,6 +46,7 @@ let test_splitlines = "" >:: (fun _ -> assert_equal (Mlpystring.splitlines "line
 let test_index = "" >:: (fun _ -> assert_equal (Mlpystring.index "0" "0") 0)
 
 let tests = "all_tests" >::: [
+  test_slice;
   test_repeat;
   test_char_of_string;
   test_at;

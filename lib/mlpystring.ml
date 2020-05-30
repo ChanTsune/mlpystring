@@ -1,4 +1,19 @@
 
+open MLPyUtils
+include Slice
+
+let slice str start stop step =
+  let start, _, step, loop = adjust_index start stop step (String.length str) in
+  let rec iter buf i count =
+    if is_zero count then
+      Buffer.contents buf
+    else
+      begin
+        Buffer.add_char buf (str.[i]);
+        iter buf (i+step) (count-1)
+      end
+in iter (Buffer.create loop) start loop
+
 let repeat str n =
   let rec iter result i =
     if i <= 0 then
