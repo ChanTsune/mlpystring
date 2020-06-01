@@ -44,10 +44,6 @@ let center str ?(fillchar=' ') width =
     (String.make b fillchar) ^ str ^ (String.make (a-b) fillchar);;
 (* TODO:center Buffer を利用した最適化の余地あり*)
 
-(* let unwrap_ n default =
-  match n with
-  None -> default
-  | Some(i) -> i;; *)
 
 let back_index_ n len =
   if n < 0 then
@@ -61,17 +57,11 @@ let int_adjust_index_ strlen start fin =
   else
     back_index_ start strlen , back_index_ fin strlen;;
 
-(* let adjust_index_ strlen start fin =(** Option type *)
-  int_adjust_index_ strlen (unwrap_ start 0 ) (unwrap_ fin strlen);; *)
-
 let get str n =
   let i = back_index_ n (String.length str) in
   String.get str i;;
 
 let at str n = get str n;;
-
-
-(* let slice ?(start=0) ?(fin=max_int) ?(step=1) str = 1;; *)
 
 let simple_slice ?(start=0) ?(fin=max_int) str = 
   let start,fin = int_adjust_index_ (String.length str) start fin in
