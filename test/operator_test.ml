@@ -10,7 +10,7 @@ let test_add_char = "add char operator" >::
 let test_add_string = "add string operator" >::
   (fun _ -> assert_equal ('0' ^$ "0") "00")
 
-let tests = "all_tests" >::: [
+let tests = "operator_tests" >::: [
   test_repeat;
   test_add_char;
   test_add_string;
