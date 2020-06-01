@@ -15,7 +15,9 @@ val endswith : string -> ?start:int -> ?fin:int -> string -> bool
 
 val expandtabs : ?tabsize:int -> string -> string
 
-val find : string -> ?start:int -> ?fin:int -> string -> int 
+val find : string -> ?start:int option -> ?stop:int option -> string -> int
+val index : string -> ?start:int option -> ?stop:int option -> string -> int
+
 val get : string -> int -> char
 val isalnum : string -> bool
 val isalpha : string -> bool
@@ -28,7 +30,6 @@ val isprintable : string -> bool
 val isspace : string -> bool
 val isupper : string -> bool
 
-val index : string -> ?start:int -> ?fin:int -> string -> int
 
 val ljust : string -> ?fillchar:char -> int -> string
 val lower : string -> string

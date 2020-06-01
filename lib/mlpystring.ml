@@ -61,67 +61,39 @@ let get str n =
   let i = back_index_ n (String.length str) in
   String.get str i;;
 
-let at str n = get str n;;
+let at = get
 
 let simple_slice ?(start=0) ?(fin=max_int) str = 
   let start,fin = int_adjust_index_ (String.length str) start fin in
   String.sub str start (fin-start);;
 
-(** 入力値は文字列 返却値は スキップテーブル(Hashtbl) *)
-let wArray_set a n x = 
-  (* Printf.printf "%c:%d\n" (char_of_int n) x; *)
-  Array.set a n x;
-  a;;
-
-let make_table str = 
-  (* Printf.printf "%s\n" str; *)
-  let ascii = 256 in
-  let slen = String.length str in
-  let table = Array.make ascii slen in
-  let rec table_update i t = 
-    if i < slen then
-      table_update (i+1) (wArray_set t (int_of_char str.[i]) ((slen -i) -1))
-    else
-      t in
-  (* スキップする長さは　入力された文字列の長さ - その文字の文字列の中での位置 -1 *)
-  table_update 0 table;;
-
-let find text ?(start=0) ?(fin=max_int) suffix = 
-  let start, fin = int_adjust_index_ (String.length text) start fin in  (* 開始インデックスの調整*)
-  let shift_table = make_table suffix in
-  let skip text pos = 
-    (* Printf.printf "%s ,p: %d\n" text pos; *)
-    Array.get shift_table (int_of_char text.[pos]) in
-  let rec search_iter text suffix i p = 
-    if p >= 0 && i < fin then
-      if text.[i] = suffix.[p] then
-        search_iter text suffix (i-1) (p-1)
-      else
-        i,p
-    else
-      i,p
-  in
-  let rec pos_iter text suffix i = 
-    (* Printf.printf "i: %d\n" i; *)
-    if i < fin then
-      let i,p = search_iter text suffix i (String.length suffix -1) in
-      if p < 0 then
-        i+1
-      else
-        pos_iter text suffix (i + max (skip suffix p) (String.length suffix - p))
-    else
+let find_internal str sub start stop =
+  let sublen = String.length sub in
+  let rec iter cursor =
+    if (cursor+sublen) > stop then
       -1
-  in pos_iter text suffix (String.length suffix + start - 1);;
+    else
+      let it = String.sub str cursor sublen in
+      if it = sub then
+        cursor
+      else
+        iter (cursor+1)
+  in iter start
+
+let find str ?(start=None) ?(stop=None) sub =
+  let len = (String.length str) in
+  let start,stop,_,_ = adjust_index start stop None len in
+  find_internal str sub start stop
 
 let count str ?(start=0) ?(fin=max_int) sub =
   let start, fin = int_adjust_index_ (String.length str) start fin in
   let sublen = String.length sub in
   let rec iter cnt cursor = 
     if cursor <> -1 && (cursor+sublen) <= fin+1 then
-      iter (cnt+1) (find str sub ~start:cursor+sublen)
+      iter (cnt+1) (find_internal str sub (cursor+sublen) fin)
     else
       cnt
-  in iter 0 (find str sub ~start:start ~fin:fin);;
+  in iter 0 (find_internal str sub start fin);;
 
 let endswith text ?(start=0) ?(fin=max_int) suffix = 
   let start, fin = int_adjust_index_ (String.length text) start fin in
@@ -161,12 +133,12 @@ let replace text ?(count=max_int) old new_ =
 let expandtabs ?(tabsize=8) str = 
  replace str "\t" (String.make tabsize ' ')
 
-let index text ?(start=0) ?(fin=max_int) suffix = 
-  let i = find text ~start:start ~fin:fin suffix in
+let index text ?(start=None) ?(stop=None) sub =
+  let i = find text ~start:start ~stop:stop sub in
   if i = -1 then
     raise Not_found
   else
-    i;;
+    i
 
 let cisdigit c =
   '0' <= c && c <= '9';;
