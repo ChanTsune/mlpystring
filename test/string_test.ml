@@ -20,7 +20,20 @@ let test_center = "centerlize string" >::
 let test_capitalize = "" >:: (fun _ -> assert_equal (Mlpystring.capitalize "abc") "Abc")
 let test_count = "" >:: (fun _ -> assert_equal (Mlpystring.count "abc" "a") 1)
 let test_endswith = "" >:: (fun _ -> assert_equal (Mlpystring.endswith "abc" "c") true)
-let test_find = "" >:: (fun _ -> assert_equal (Mlpystring.find "abc" "a") 0)
+
+let test_find = "find" >::: [
+  "find empty from empty" >:: (fun _ -> assert_equal (Mlpystring.find "" "") 0);
+  "find char from empty" >:: (fun _ -> assert_equal (Mlpystring.find "" "0") (-1));
+  "find string from empty" >:: (fun _ -> assert_equal (Mlpystring.find "" "12") (-1));
+  "find empty from string" >:: (fun _ -> assert_equal (Mlpystring.find "01234567890" "") 0);
+  "find char from string" >:: (fun _ -> assert_equal (Mlpystring.find "01234567890" "0") 0);
+  "find string from string" >:: (fun _ -> assert_equal (Mlpystring.find "01234567890" "01") 0);
+  "find string from string" >:: (fun _ -> assert_equal (Mlpystring.find "01234567890" "23") 2);
+  "find string with start from string" >:: (fun _ -> assert_equal (Mlpystring.find "01234567890" "0" ~start:(Some 1)) 10);
+  "find string with end from string" >:: (fun _ -> assert_equal (Mlpystring.find "01234567890" "90" ~stop:(Some (-1))) (-1));
+  "find string with start and end from string" >:: (fun _ -> assert_equal (Mlpystring.find "01234567890" "0" ~start:(Some 1) ~stop:(Some (-1))) (-1));
+]
+
 let test_get = "" >:: (fun _ -> assert_equal (Mlpystring.get "abc" 0) 'a')
 let test_isalnum = "" >:: (fun _ -> assert_equal (Mlpystring.isalnum "abc") true)
 let test_isalpha = "" >:: (fun _ -> assert_equal (Mlpystring.isalpha "abc") true)
