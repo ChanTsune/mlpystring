@@ -7,6 +7,6 @@ let test_adjust_index = "adjust index for slice" >::
     (0, 20, 1, 20)
 )
 
-let tests = "all_tests" >::: [
+let tests = "slice_tests" >::: [
   test_adjust_index;
 ]
