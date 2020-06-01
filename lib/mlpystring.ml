@@ -239,14 +239,14 @@ let ljust str ?(fillchar=' ') width =
   if l >= width then
     str
   else
-    String.make (width-l) fillchar ^ str;;
+    str ^ String.make (width-l) fillchar;;
 
 let rjust str ?(fillchar=' ') width =
   let r = String.length str in
   if r >= width then
     str
   else
-    str ^ String.make (width-r) fillchar;;
+    String.make (width-r) fillchar ^ str;;
 
 let lower str = String.lowercase_ascii str;;
 
