@@ -14,33 +14,60 @@ let test_center = "centerlize string" >::
 
 (* TODO: Test *)
 
-let test_capitalize = "" >:: (fun _ -> assert_equal (Mlpystring.capitalize "abc") "Abc")
-let test_count = "" >:: (fun _ -> assert_equal (Mlpystring.count "abc" "a") 1)
-let test_endswith = "" >:: (fun _ -> assert_equal (Mlpystring.endswith "abc" "c") true)
-let test_find = "" >:: (fun _ -> assert_equal (Mlpystring.find "abc" "a") 0)
-let test_get = "" >:: (fun _ -> assert_equal (Mlpystring.get "abc" 0) 'a')
-let test_isalnum = "" >:: (fun _ -> assert_equal (Mlpystring.isalnum "abc") true)
-let test_isalpha = "" >:: (fun _ -> assert_equal (Mlpystring.isalpha "abc") true)
-let test_isascii = "" >:: (fun _ -> assert_equal (Mlpystring.isascii "abc") true)
-let test_isdecimal = "" >:: (fun _ -> assert_equal (Mlpystring.isdecimal "012") true)
-let test_isdigit = "" >:: (fun _ -> assert_equal (Mlpystring.isdigit "012") true)
-let test_islower = "" >:: (fun _ -> assert_equal (Mlpystring.islower "abc") true)
-let test_isnumeric = "" >:: (fun _ -> assert_equal (Mlpystring.isnumeric "012") true)
-let test_isprintable = "" >:: (fun _ -> assert_equal (Mlpystring.isprintable "21") true)
-let test_isspace = "" >:: (fun _ -> assert_equal (Mlpystring.isspace " ") true)
-let test_isupper = "" >:: (fun _ -> assert_equal (Mlpystring.isupper "A") true)
-let test_ljust = "" >:: (fun _ -> assert_equal (Mlpystring.ljust "12" 3) " 12")
-let test_lower = "" >:: (fun _ -> assert_equal (Mlpystring.lower "ABC") "abc")
-let test_lstrip = "" >:: (fun _ -> assert_equal (Mlpystring.lstrip " a") "a")
-let test_join = "" >:: (fun _ -> assert_equal (Mlpystring.join "a" ["b";"c"]) "bac")
-let test_rjust = "" >:: (fun _ -> assert_equal (Mlpystring.rjust "12" 3) " 12")
-let test_rstrip = "" >:: (fun _ -> assert_equal (Mlpystring.rstrip "12 ") "12")
-let test_replace = "" >:: (fun _ -> assert_equal (Mlpystring.replace "123" "2" "4") "143")
-let test_split = "" >:: (fun _ -> assert_equal (Mlpystring.split "1,2" ",") ["1"; "2"])
-let test_strip = "" >:: (fun _ -> assert_equal (Mlpystring.strip " 12 ") "12")
-let test_partition = "" >:: (fun _ -> assert_equal (Mlpystring.partition "1,2" ",") ["1"; "2"])
-let test_splitlines = "" >:: (fun _ -> assert_equal (Mlpystring.splitlines "line") ["line"])
-let test_index = "" >:: (fun _ -> assert_equal (Mlpystring.index "0" "0") 0)
+let test_capitalize = "capitalize" >::
+ (fun _ -> assert_equal (Mlpystring.capitalize "abc") "Abc")
+let test_count = "count" >::
+ (fun _ -> assert_equal (Mlpystring.count "abc" "a") 1)
+let test_endswith = "endswith" >::
+ (fun _ -> assert_equal (Mlpystring.endswith "abc" "c") true)
+let test_find = "find" >::
+ (fun _ -> assert_equal (Mlpystring.find "abc" "a") 0)
+let test_get = "get" >::
+ (fun _ -> assert_equal (Mlpystring.get "abc" 0) 'a')
+let test_isalnum = "isalnum" >::
+ (fun _ -> assert_equal (Mlpystring.isalnum "abc") true)
+let test_isalpha = "isalpha" >::
+ (fun _ -> assert_equal (Mlpystring.isalpha "abc") true)
+let test_isascii = "isascii" >::
+ (fun _ -> assert_equal (Mlpystring.isascii "abc") true)
+let test_isdecimal = "isdecimal" >::
+ (fun _ -> assert_equal (Mlpystring.isdecimal "012") true)
+let test_isdigit = "isdigit" >::
+ (fun _ -> assert_equal (Mlpystring.isdigit "012") true)
+let test_islower = "islower" >::
+ (fun _ -> assert_equal (Mlpystring.islower "abc") true)
+let test_isnumeric = "isnumeric" >::
+ (fun _ -> assert_equal (Mlpystring.isnumeric "012") true)
+let test_isprintable = "isprintable" >::
+ (fun _ -> assert_equal (Mlpystring.isprintable "21") true)
+let test_isspace = "isspace" >::
+ (fun _ -> assert_equal (Mlpystring.isspace " ") true)
+let test_isupper = "isupper" >::
+ (fun _ -> assert_equal (Mlpystring.isupper "A") true)
+let test_ljust = "ljust" >::
+ (fun _ -> assert_equal (Mlpystring.ljust "12" 3) "12 ")
+let test_lower = "lower" >::
+ (fun _ -> assert_equal (Mlpystring.lower "ABC") "abc")
+let test_lstrip = "lstrip" >::
+ (fun _ -> assert_equal (Mlpystring.lstrip " a") "a")
+let test_join = "join" >::
+ (fun _ -> assert_equal (Mlpystring.join "a" ["b";"c"]) "bac")
+let test_rjust = "rjust" >::
+ (fun _ -> assert_equal (Mlpystring.rjust "12" 3) " 12")
+let test_rstrip = "rstrip" >::
+ (fun _ -> assert_equal (Mlpystring.rstrip "12 ") "12")
+let test_replace = "replace" >::
+ (fun _ -> assert_equal (Mlpystring.replace "123" "2" "4") "143")
+let test_split = "split" >::
+ (fun _ -> assert_equal (Mlpystring.split "1,2" ",") ["1"; "2"])
+let test_strip = "strip" >::
+ (fun _ -> assert_equal (Mlpystring.strip " 12 ") "12")
+let test_partition = "partition" >::
+ (fun _ -> assert_equal (Mlpystring.partition "1,2" ",") ["1"; "2"])
+let test_splitlines = "splitlines" >::
+ (fun _ -> assert_equal (Mlpystring.splitlines "line") ["line"])
+let test_index = "index" >::
+ (fun _ -> assert_equal (Mlpystring.index "0" "0") 0)
 
 let tests = "all_tests" >::: [
   test_repeat;
