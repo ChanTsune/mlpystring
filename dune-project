@@ -13,5 +13,8 @@
  (synopsis "An OCaml library for Python like string operation")
  (description "A library that provides methods equivalent to Python3's str class in OCaml.")
  (depends
+  (ocaml (>= 4.03))
+  (dune (> 2.5))
   (ounit :with-test)
-  (dune (> 1.5))))
+ )
+)

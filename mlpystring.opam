@@ -10,21 +10,14 @@ license: "MIT"
 homepage: "https://github.com/ChanTsune/mlpystring"
 bug-reports: "https://github.com/ChanTsune/mlpystring/issues"
 depends: [
+  "ocaml" {>= "4.03"}
+  "dune" {> "2.5"}
   "ounit" {with-test}
-  "dune" {> "1.5"}
 ]
 build: [
   ["dune" "subst"] {pinned}
-  [
-    "dune"
-    "build"
-    "-p"
-    name
-    "-j"
-    jobs
-    "@install"
-    "@runtest" {with-test}
-    "@doc" {with-doc}
-  ]
+  ["dune" "build" "-p" name "-j" jobs "@install"]
+  ["dune" "build" "-p" name "-j" jobs "@runtest"] {with-test}
+  ["dune" "build" "-p" name "-j" jobs "@doc" ] {with-doc}
 ]
 dev-repo: "git+https://github.com/ChanTsune/mlpystring.git"
