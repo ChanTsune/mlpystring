@@ -78,7 +78,7 @@ let test_split = "split" >::
 let test_strip = "strip" >::
  (fun _ -> assert_equal (Mlpystring.strip " 12 ") "12")
 let test_partition = "partition" >::
- (fun _ -> assert_equal (Mlpystring.partition "1,2" ",") ["1"; "2"])
+ (fun _ -> assert_equal (Mlpystring.partition "1,2" ",") ["1"; ","; "2"])
 let test_splitlines = "splitlines" >::
  (fun _ -> assert_equal (Mlpystring.splitlines "line") ["line"])
 let test_index = "index" >::
