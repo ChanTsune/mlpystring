@@ -85,15 +85,15 @@ let find str ?(start=None) ?(stop=None) sub =
   let start,stop,_,_ = adjust_index start stop None len in
   find_internal str sub start stop
 
-let count str ?(start=0) ?(fin=max_int) sub =
-  let start, fin = int_adjust_index_ (String.length str) start fin in
+let count str ?(start=None) ?(stop=None) sub =
+  let start, stop, _,_ = adjust_index start stop None (String.length str) in
   let sublen = String.length sub in
   let rec iter cnt cursor = 
-    if cursor <> -1 && (cursor+sublen) <= fin+1 then
-      iter (cnt+1) (find_internal str sub (cursor+sublen) fin)
+    if cursor <> -1 && (cursor+sublen) <= stop+1 then
+      iter (cnt+1) (find_internal str sub (cursor+sublen) stop)
     else
       cnt
-  in iter 0 (find_internal str sub start fin);;
+  in iter 0 (find_internal str sub start stop);;
 
 let endswith text ?(start=0) ?(fin=max_int) suffix = 
   let start, fin = int_adjust_index_ (String.length text) start fin in
