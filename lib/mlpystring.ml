@@ -95,13 +95,13 @@ let count str ?(start=None) ?(stop=None) sub =
       cnt
   in iter 0 (find_internal str sub start stop);;
 
-let endswith text ?(start=0) ?(fin=max_int) suffix = 
-  let start, fin = int_adjust_index_ (String.length text) start fin in
+let endswith text ?(start=None) ?(stop=None) suffix =
+  let start, stop, _, _ = adjust_index start stop None (String.length text) in
   let sublen = String.length suffix in
-  if (fin - start) < sublen then
+  if (stop - start) < sublen then
     false
   else
-    let sub = simple_slice text ~start:(fin-sublen) ~fin:fin in
+    let sub = String.sub text (stop-sublen) sublen in
     sub = suffix;;
 
 let split text ?(count=max_int) sep = 

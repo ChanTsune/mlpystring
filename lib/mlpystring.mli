@@ -11,7 +11,7 @@ val at : string -> int -> char
 val center : string -> ?fillchar:char -> int -> string
 val capitalize : string -> string
 val count : string -> ?start:int option -> ?stop:int option -> string -> int
-val endswith : string -> ?start:int -> ?fin:int -> string -> bool
+val endswith : string -> ?start:int option -> ?stop:int option -> string -> bool
 
 val expandtabs : ?tabsize:int -> string -> string
 
