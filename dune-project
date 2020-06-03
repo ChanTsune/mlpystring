@@ -1,4 +1,5 @@
 (lang dune 2.5)
+(name mlpystring)
 (version 0.0.0)
 (generate_opam_files true)
 
