@@ -51,21 +51,15 @@ let back_index_ n len =
   else
     n;;
 
-let int_adjust_index_ strlen start fin =
-  if fin > strlen then
-    back_index_ start strlen , strlen
-  else
-    back_index_ start strlen , back_index_ fin strlen;;
-
 let get str n =
   let i = back_index_ n (String.length str) in
   String.get str i;;
 
 let at = get
 
-let simple_slice ?(start=0) ?(fin=max_int) str = 
-  let start,fin = int_adjust_index_ (String.length str) start fin in
-  String.sub str start (fin-start);;
+let simple_slice ?(start=0) ?(stop=max_int) str =
+  let start, stop, _, _ = adjust_index (Some start) (Some stop) None (String.length str) in
+  String.sub str start (stop-start)
 
 let find_internal str sub start stop =
   let sublen = String.length sub in
@@ -85,23 +79,23 @@ let find str ?(start=None) ?(stop=None) sub =
   let start,stop,_,_ = adjust_index start stop None len in
   find_internal str sub start stop
 
-let count str ?(start=0) ?(fin=max_int) sub =
-  let start, fin = int_adjust_index_ (String.length str) start fin in
+let count str ?(start=None) ?(stop=None) sub =
+  let start, stop, _,_ = adjust_index start stop None (String.length str) in
   let sublen = String.length sub in
   let rec iter cnt cursor = 
-    if cursor <> -1 && (cursor+sublen) <= fin+1 then
-      iter (cnt+1) (find_internal str sub (cursor+sublen) fin)
+    if cursor <> -1 && (cursor+sublen) <= stop+1 then
+      iter (cnt+1) (find_internal str sub (cursor+sublen) stop)
     else
       cnt
-  in iter 0 (find_internal str sub start fin);;
+  in iter 0 (find_internal str sub start stop);;
 
-let endswith text ?(start=0) ?(fin=max_int) suffix = 
-  let start, fin = int_adjust_index_ (String.length text) start fin in
+let endswith text ?(start=None) ?(stop=None) suffix =
+  let start, stop, _, _ = adjust_index start stop None (String.length text) in
   let sublen = String.length suffix in
-  if (fin - start) < sublen then
+  if (stop - start) < sublen then
     false
   else
-    let sub = simple_slice text ~start:(fin-sublen) ~fin:fin in
+    let sub = String.sub text (stop-sublen) sublen in
     sub = suffix;;
 
 let split text ?(count=max_int) sep = 
@@ -113,7 +107,7 @@ let split text ?(count=max_int) sep =
       if cusor = -1 then
         List.rev (txt::lst)
       else
-        let hd = simple_slice txt ~start:0 ~fin:cusor in
+        let hd = simple_slice txt ~start:0 ~stop:cusor in
         let tl = simple_slice txt ~start:(cusor+(String.length sep)) in
         iter (hd::lst) tl (cnt-1) s
   in iter [] text count sep;;
@@ -243,7 +237,7 @@ let rstrip str =
     else
       cnt
   in
-  simple_slice str ~fin:((iter ((String.length str)-1))+1);;
+  simple_slice str ~stop:((iter ((String.length str)-1))+1);;
 
 let strip str = lstrip (rstrip str);;
 
@@ -252,7 +246,7 @@ let partition str sep =
     if i = (-1) then
       [str ;"";""]
     else
-      [simple_slice str ~fin:i ; sep ;simple_slice str ~start:(i+(String.length sep))]
+      [simple_slice str ~stop:i; sep; simple_slice str ~start:(i+(String.length sep))]
 
 let splitlines ?(keepends=false) str =
   let len = String.length str in
