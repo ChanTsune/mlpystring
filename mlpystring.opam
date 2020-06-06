@@ -10,8 +10,9 @@ license: "MIT"
 homepage: "https://github.com/ChanTsune/mlpystring"
 bug-reports: "https://github.com/ChanTsune/mlpystring/issues"
 depends: [
-  "ounit" {with-test}
-  "dune" {> "1.5"}
+  "ocaml" {>= "4.03"}
+  "dune" {> "2.5"}
+  "ounit" {> "2.2"}
 ]
 build: [
   ["dune" "subst"] {pinned}
