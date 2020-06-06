@@ -15,6 +15,6 @@
  (depends
   (ocaml (>= 4.03))
   (dune (> 2.5))
-  (ounit (> 2.2))
+  (oUnit (> 2.2))
  )
 )
