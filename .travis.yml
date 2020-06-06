@@ -6,7 +6,7 @@ script:
   - "dune runtest"
 
 env:
-  - OCAML_VERSION=4.03 DEPOPTS="ocamlfind ounit" TESTS="false"
+  - OCAML_VERSION=4.03 DEPOPTS="dune ocamlfind ounit" TESTS="false"
   # - OCAML_VERSION=4.04 DEPOPTS="ocamlfind ounit"
   # - OCAML_VERSION=4.05 DEPOPTS="ocamlfind ounit"
   # - OCAML_VERSION=4.06 DEPOPTS="ocamlfind ounit"
