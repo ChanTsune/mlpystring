@@ -15,6 +15,6 @@
  (depends
   (ocaml (>= 4.03))
   (dune (> 2.5))
-  (ounit :with-test)
+  (ounit (> 2.2))
  )
 )
